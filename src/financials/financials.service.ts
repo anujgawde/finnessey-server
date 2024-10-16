@@ -16,7 +16,7 @@ export class FinancialsService {
   }
 
   // TODO: Update userFinancialData with its type
-  async setUserFinancials(userFinancialData: any) {
+  async saveUserFinancials(userFinancialData: any) {
     const userFinancials = this.financialsRepository.create(userFinancialData);
     await this.financialsRepository.save(userFinancials);
   }

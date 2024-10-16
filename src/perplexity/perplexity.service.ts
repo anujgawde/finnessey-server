@@ -16,8 +16,11 @@ export class PerplexityService {
 
   // TODO: When user management is implemented, fetch messages for specific user
   async loadConversation() {
-    const conversationMessages = this.messagesRepository.find();
-    return conversationMessages;
+    const conversationMessages = await this.messagesRepository.find();
+    const formattedMessages = conversationMessages.map(
+      ({ id, ...rest }) => rest,
+    );
+    return formattedMessages;
   }
 
   // TODO: Specify type for array of conversations
@@ -25,14 +28,10 @@ export class PerplexityService {
     // TODO: Update to save messages
     const messages = this.messagesRepository.create(currentMessages.messages);
     await this.messagesRepository.save(messages);
-
-    console.log('Bulk insert completed successfully!');
   }
 
   // TODO: Specify type for chatCompletionsData
   async chatCompletions(chatCompletionsData: any) {
-    console.log('This is outside', this.userFinancials);
-
     if (!this.userFinancials) {
       const userFinancials = await this.financialsService.getUserFinancials();
       this.userFinancials = userFinancials;
@@ -47,20 +46,20 @@ export class PerplexityService {
       model: 'llama-3.1-sonar-small-128k-online',
       messages: chatCompletionsData.messages,
     };
-    if (chatCompletionsData.length < 2) {
-      data.messages.unshift(systemMessage);
+
+    if (chatCompletionsData.messages.length < 2) {
+      await this.saveConversation({ messages: [systemMessage] });
     }
 
-    const res = await axios.post(
-      'https://api.perplexity.ai/chat/completions',
-      data,
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.PPLX_TOKEN}`,
-          'Content-Type': 'application/json',
-        },
+    if (chatCompletionsData.messages[0]?.role !== 'system') {
+      data.messages.unshift(systemMessage);
+    }
+    const res = await axios.post(process.env.PPLX_URL, data, {
+      headers: {
+        Authorization: `Bearer ${process.env.PPLX_API_KEY}`,
+        'Content-Type': 'application/json',
       },
-    );
+    });
     return res.data;
   }
 }

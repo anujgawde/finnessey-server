@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { FinancialsService } from './financials.service';
 
 @Controller('financials')
@@ -9,5 +9,10 @@ export class FinancialsController {
   @Get('get-user-financials')
   async getUserFinancials() {
     return this.financialsService.getUserFinancials();
+  }
+
+  @Post('save-user-financials')
+  async saveUserFinancials(@Body() userFinancialData: any) {
+    return this.financialsService.saveUserFinancials(userFinancialData);
   }
 }
