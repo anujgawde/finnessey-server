@@ -6,8 +6,8 @@ This is the **backend service** that powers the Finance AI Assistant frontend. I
 
 **Clone the Repository**
 
-    git clone <backend-repo-url>
-    cd <backend-repo-directory>
+    git clone [<backend-repo-url>](https://github.com/anujgawde/personal-finance-assistant)
+    cd personal-finance-assistant
 
 **Install Dependencies**
 
@@ -18,8 +18,8 @@ This is the **backend service** that powers the Finance AI Assistant frontend. I
 
 **Create Perplexity AI Account**
 
-    -   Sign up for a **Perplexity AI** account.
-    -   Generate an **API key** from the Perplexity AI dashboard.
+    -   Sign up for a Perplexity AI account.
+    -   Generate an API key from the Perplexity AI dashboard.
 
 **Configure Environment Variables**
 
