@@ -1,4 +1,4 @@
-# Personal Finance Assistant (Backend)
+# Finnessey - Server
 
 This is the **backend service** that powers the Finance AI Assistant frontend. It handles APIs, manages the **database connections**, and integrates with **Perplexity AI** for AI-based interactions.
 
